@@ -66,6 +66,15 @@ export class PhotoEditorComponent implements OnInit {
         };
 
         this.photos.push(photo);
+
+        if (photo.isMain) {
+          this.authService.changeMemberPhoto(photo.url);
+          this.authService.currentUser.photoUrl = photo.url;
+          localStorage.setItem(
+            'user',
+            JSON.stringify(this.authService.currentUser)
+          );
+        }
       }
     };
   }
@@ -97,7 +106,10 @@ export class PhotoEditorComponent implements OnInit {
         .deletePhoto(this.authService.decodedToken.nameid, id)
         .subscribe(
           () => {
-            this.photos.splice(this.photos.findIndex(p => p.id === id), 1);
+            this.photos.splice(
+              this.photos.findIndex((p) => p.id === id),
+              1
+            );
             this.alertify.success('Your photo has been deleted');
           },
           (error) => {
