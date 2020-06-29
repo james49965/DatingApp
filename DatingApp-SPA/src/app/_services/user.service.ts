@@ -86,4 +86,8 @@ export class UserService {
   sendLike(userId: number, recipientId: number) {
     return this.http.post(this.baseUrl + 'users/' + userId + '/like/' + recipientId, {});
   }
+
+  removeLike(userId: number, recipientId: number) {
+    return this.http.delete(this.baseUrl + 'users/' + userId + '/unlike/' + recipientId);
+  }
 }

@@ -68,4 +68,17 @@ export class MemberDetailComponent implements OnInit {
         }
       );
   }
+
+  removeLike() {
+    this.userService
+      .removeLike(this.authService.decodedToken.nameid, this.user.id)
+      .subscribe(
+        (data) => {
+          this.alertify.success('You have unliked ' + this.user.knownAs);
+        },
+        (error) => {
+          this.alertify.error(error);
+        }
+      );
+  }
 }
